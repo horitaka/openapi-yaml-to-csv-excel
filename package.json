@@ -1,0 +1,31 @@
+{
+  "name": "openapi-yaml-to-csv-excel",
+  "version": "1.0.0",
+  "description": "CLI tool to convert OpenAPI yaml file to CSV/Excel file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horitaka/openapi-yaml-to-csv-excel.git"
+  },
+  "keywords": [
+    "openapi",
+    "converter",
+    "yaml",
+    "csv",
+    "excel"
+  ],
+  "author": "horitaka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/horitaka/openapi-yaml-to-csv-excel/issues"
+  },
+  "homepage": "https://github.com/horitaka/openapi-yaml-to-csv-excel#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "husky": "^8.0.3"
+  }
+}
