@@ -7,6 +7,8 @@
     "build": "tsc",
     "commit": "cz",
     "dev": "ts-node src/index.ts",
+    "lint": "eslint --fix '{src,tests}/**/*.{ts,js}'",
+    "format": "prettier --write '{src,tests}/**/*.{ts,js}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,9 +32,21 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3"
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "husky": "^8.0.3",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.4"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   },
   "config": {
     "commitizen": {
@@ -40,7 +54,6 @@
     }
   },
   "dependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "ts-node": "^10.9.1"
   }
 }
