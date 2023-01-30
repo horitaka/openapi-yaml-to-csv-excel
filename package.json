@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "CLI tool to convert OpenAPI yaml file to CSV/Excel file.",
   "main": "index.js",
+  "bin": {
+    "@horitaka/opapi-convert": "dist/index.js",
+    "opapi-convert": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "commit": "cz",
