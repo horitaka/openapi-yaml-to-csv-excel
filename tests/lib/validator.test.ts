@@ -1,4 +1,4 @@
-import { isValidInputFile } from './validator'
+import { isValidInputFile } from '@/lib/validator'
 
 describe('validator', () => {
   it('return true', () => {

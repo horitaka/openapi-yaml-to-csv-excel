@@ -1,13 +1,14 @@
+import { loadApiDocFromYaml } from '@/lib/fileio'
 import type { Arguments, Argv } from 'yargs'
 
-type Options = {
+type ConvertOptions = {
   input: string
   output?: string
 }
 
 export const command = 'convert'
 export const desc = 'Create an empty repo'
-export const builder = (yargs: Argv<Options>): Argv<Options> =>
+export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
   yargs
     .options({
       input: {
@@ -24,10 +25,17 @@ export const builder = (yargs: Argv<Options>): Argv<Options> =>
       },
     })
     .check(isValidInputFile)
-export const handler = (args: any) => {
-  console.log('convert')
+export const handler = (args: Arguments<ConvertOptions>) => {
+  const apiDocJson = loadApiDocFromYaml(args.input)
+  console.log('🚀 - handler - apiDocJson', apiDocJson)
+
+  // オブジェクトをcsvテキストに変換
+  // const apiSpecCsv = convertYamlToCsv(apiSpecYaml)
+
+  // ファイルに保存
+  // saveCsv(apiSpecYaml)
 }
 
-const isValidInputFile = (argv: Options): boolean => {
+const isValidInputFile = (argv: ConvertOptions): boolean => {
   return true
 }
