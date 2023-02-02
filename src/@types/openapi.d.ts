@@ -1,6 +1,6 @@
 export type OpenApi = {
   openapi: string
-  paths: PathObject
+  paths?: PathObject
 }
 
 export type PathObject = {
@@ -9,20 +9,20 @@ export type PathObject = {
 
 export type PathItemObject = {
   summary?: string
-  description: string
-  get: OperationObject
-  put: OperationObject
-  post: OperationObject
-  delete: OperationObject
-  options: OperationObject
-  head: OperationObject
-  patch: OperationObject
-  trace: OperationObject
+  description?: string
+  get?: OperationObject
+  put?: OperationObject
+  post?: OperationObject
+  delete?: OperationObject
+  options?: OperationObject
+  head?: OperationObject
+  patch?: OperationObject
+  trace?: OperationObject
 }
 
 export type OperationObject = {
-  tags: string[]
-  summary: string
-  description: string
-  operationId: string
+  tags?: string[]
+  summary?: string
+  description?: string
+  operationId?: string
 }

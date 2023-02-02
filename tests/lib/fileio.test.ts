@@ -3,11 +3,11 @@ import { loadApiDocFromYaml } from '@/lib/fileio'
 
 describe('lib/fieio', () => {
   describe('loadApiDocFromYaml', () => {
-    it('should return OpenAPI spec in JOSN object', () => {
+    it('should return OpenAPI spec in JSON object', () => {
       const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.yaml')
       const data = loadApiDocFromYaml(filePath)
 
-      const petsActual = data.paths['/pets']
+      const petsActual = data?.paths?.['/pets']
       const petsExpected = {
         get: {
           summary: 'List all pets',
@@ -23,7 +23,7 @@ describe('lib/fieio', () => {
       expect(petsActual).toBeDefined()
       expect(petsActual).toMatchObject(petsExpected)
 
-      const petsByIdActual = data.paths['/pets/{petId}']
+      const petsByIdActual = data?.paths?.['/pets/{petId}']
       const petsByIdExpected = {
         get: {
           summary: 'Info for a specific pet',
