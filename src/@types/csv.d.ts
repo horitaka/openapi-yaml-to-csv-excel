@@ -1,17 +1,11 @@
+import { Method } from './openapi.d'
 export type Csv = CsvItem[]
+
 type CsvItem = {
   path: string
   summary: string
   description: string
-  method:
-    | 'get'
-    | 'put'
-    | 'post'
-    | 'delete'
-    | 'options'
-    | 'head'
-    | 'patch'
-    | 'trace'
+  method: Method
   tags: string
   summaryMethod: string
   descriptionMethod: string

@@ -1,13 +1,15 @@
+import { methods } from '@/constants'
+
 export type OpenApi = {
   openapi: string
   paths?: PathObject
 }
 
-export type PathObject = {
+type PathObject = {
   [key: string]: PathItemObject
 }
 
-export type PathItemObject = {
+type PathItemObject = {
   summary?: string
   description?: string
   get?: OperationObject
@@ -20,9 +22,11 @@ export type PathItemObject = {
   trace?: OperationObject
 }
 
-export type OperationObject = {
+type OperationObject = {
   tags?: string[]
   summary?: string
   description?: string
   operationId?: string
 }
+
+export type Method = (typeof methods)[number]

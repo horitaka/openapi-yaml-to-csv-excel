@@ -1,16 +1,5 @@
-import { OpenApi, Csv } from '@/@types'
-
-const methods = [
-  'get',
-  'put',
-  'post',
-  'delete',
-  'options',
-  'head',
-  'patch',
-  'trace',
-] as const
-type Method = (typeof methods)[number]
+import { OpenApi, Csv, Method } from '@/@types'
+import { methods } from '@/constants'
 
 export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
   const pathData = jsonData.paths
