@@ -1,6 +1,6 @@
 import type { Arguments, Argv } from 'yargs'
 
-import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
 
 type ConvertOptions = {
   input: string
@@ -28,15 +28,8 @@ export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
     .check(isValidInputFile)
 export const handler = (args: Arguments<ConvertOptions>) => {
   const apiDocJson = loadApiDocFromYaml(args.input)
-  // console.log('🚀 - handler - apiDocJson', apiDocJson)
-
-  writeApiDocToCsv('out.txt', apiDocJson)
-
-  // オブジェクトをcsvテキストに変換
-  // const apiSpecCsv = convertYamlToCsv(apiSpecYaml)
-
-  // ファイルに保存
-  // saveCsv(apiSpecYaml)
+  const outputPath = getOutputFilePath(args.input, args.output)
+  writeApiDocToCsv(outputPath, apiDocJson)
 }
 
 const isValidInputFile = (argv: ConvertOptions): boolean => {

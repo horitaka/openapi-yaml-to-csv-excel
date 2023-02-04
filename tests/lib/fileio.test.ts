@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
 
 import { sampleOpenApiJson } from '../fixtures/openApiJson'
 
@@ -39,9 +39,7 @@ describe('lib/fieio', () => {
       expect(petsByIdActual).toMatchObject(petsByIdExpected)
     })
   })
-})
 
-describe('lib/fileio', () => {
   describe('writeApiDocToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
@@ -52,6 +50,29 @@ describe('lib/fileio', () => {
       expect(fs.existsSync(filePath)).toBeTruthy()
 
       fs.unlinkSync(filePath)
+    })
+  })
+
+  describe('getOutputFilePath', () => {
+    it('receive and return output file path', () => {
+      const inputPath = 'input.yaml'
+      const outputPath = 'output.csv'
+
+      const actual = getOutputFilePath(inputPath, outputPath)
+
+      expect(actual).toBe(outputPath)
+    })
+
+    it('receive no output file path and return input file path', () => {
+      const inputPath = 'input.yaml'
+      const inputPath2 = 'input.yml'
+      const outputPath = 'input.csv'
+
+      const actual = getOutputFilePath(inputPath)
+      expect(actual).toBe(outputPath)
+
+      const actual2 = getOutputFilePath(inputPath2)
+      expect(actual2).toBe(outputPath)
     })
   })
 })

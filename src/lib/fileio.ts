@@ -25,3 +25,11 @@ export const writeApiDocToCsv = (path: string, data: OpenApi) => {
   const outputData = stringify(csvData, options)
   fs.writeFileSync(outputPath, outputData)
 }
+
+export const getOutputFilePath = (inputPath: string, outputPath?: string): string => {
+  if (outputPath) {
+    return outputPath
+  } else {
+    return inputPath.replace(/(.yaml|.yml)/, '.csv')
+  }
+}
