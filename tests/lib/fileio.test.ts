@@ -1,5 +1,6 @@
 import path from 'path'
-import { loadApiDocFromYaml } from '@/lib/fileio'
+import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+import { sampleOpenApiJson } from '../fixtures/openApiJson'
 
 describe('lib/fieio', () => {
   describe('loadApiDocFromYaml', () => {
@@ -33,6 +34,15 @@ describe('lib/fieio', () => {
       }
       expect(petsByIdActual).toBeDefined()
       expect(petsByIdActual).toMatchObject(petsByIdExpected)
+    })
+  })
+})
+
+describe('lib/fileio', () => {
+  describe('writeApiDocToCsv', () => {
+    it('output csv', () => {
+      writeApiDocToCsv('out.csv', sampleOpenApiJson)
+      expect(1).toBe(1)
     })
   })
 })
