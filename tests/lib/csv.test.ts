@@ -3,7 +3,7 @@ import { sampleOpenApiJson } from '../fixtures/openApiJson'
 
 describe('lib/csv', () => {
   describe('convertOpenApiJsonToCsv', () => {
-    it.only('convert to csv', () => {
+    it('convert to csv', () => {
       const actual = convertOpenApiJsonToCsv(sampleOpenApiJson)
       const expected = [
         {
