@@ -1,5 +1,6 @@
-import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
 import type { Arguments, Argv } from 'yargs'
+
+import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
 
 type ConvertOptions = {
   input: string

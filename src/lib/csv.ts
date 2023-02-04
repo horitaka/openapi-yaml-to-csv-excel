@@ -1,4 +1,4 @@
-import { OpenApi, Csv, Method } from '@/@types'
+import type { OpenApi, Csv, Method } from '@/@types'
 import { methods } from '@/constants'
 
 export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {

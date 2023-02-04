@@ -1,11 +1,13 @@
-import { readFileSync } from 'fs'
-import { load } from 'js-yaml'
-import { OpenApi } from '@/@types'
-import { stringify } from 'csv-stringify/sync'
-import fs from 'fs'
+import fs, { readFileSync } from 'fs'
 import { join } from 'path'
-import { convertOpenApiJsonToCsv } from './csv'
+
+import { stringify } from 'csv-stringify/sync'
+import { load } from 'js-yaml'
+
+import type { OpenApi } from '@/@types'
 import { csvHeaders } from '@/constants'
+
+import { convertOpenApiJsonToCsv } from './csv'
 
 export const loadApiDocFromYaml = (path: string): OpenApi => {
   const text = readFileSync(path, 'utf-8')

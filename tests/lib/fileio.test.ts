@@ -1,7 +1,9 @@
-import path from 'path'
-import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
-import { sampleOpenApiJson } from '../fixtures/openApiJson'
 import fs from 'fs'
+import path from 'path'
+
+import { loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+
+import { sampleOpenApiJson } from '../fixtures/openApiJson'
 
 describe('lib/fieio', () => {
   describe('loadApiDocFromYaml', () => {

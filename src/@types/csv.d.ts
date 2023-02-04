@@ -1,4 +1,4 @@
-import { Method } from './openapi.d'
+import type { Method } from './openapi.d'
 export type Csv = CsvItem[]
 
 type CsvItem = {

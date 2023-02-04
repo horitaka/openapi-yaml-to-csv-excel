@@ -1,4 +1,4 @@
-import { methods } from '@/constants'
+import type { methods } from '@/constants'
 
 export type OpenApi = {
   openapi: string
