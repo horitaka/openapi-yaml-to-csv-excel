@@ -2,24 +2,6 @@
   "name": "openapi-yaml-to-csv-excel",
   "version": "1.0.0",
   "description": "CLI tool to convert OpenAPI yaml file to CSV/Excel file.",
-  "main": "index.js",
-  "bin": {
-    "@horitaka/oapi-convert": "dist/index.js",
-    "oapi-convert": "dist/index.js"
-  },
-  "scripts": {
-    "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "commit": "cz",
-    "dev": "ts-node src/index.ts",
-    "lint": "eslint --fix '{src,tests}/**/*.{ts,js}'",
-    "format": "prettier --write '{src,tests}/**/*.{ts,js}'",
-    "test": "jest",
-    "test:watch": "jest --watch --silent=false --verbose false"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/horitaka/openapi-yaml-to-csv-excel.git"
-  },
   "keywords": [
     "openapi",
     "converter",
@@ -27,12 +9,40 @@
     "csv",
     "excel"
   ],
-  "author": "horitaka",
-  "license": "MIT",
+  "homepage": "https://github.com/horitaka/openapi-yaml-to-csv-excel#readme",
   "bugs": {
     "url": "https://github.com/horitaka/openapi-yaml-to-csv-excel/issues"
   },
-  "homepage": "https://github.com/horitaka/openapi-yaml-to-csv-excel#readme",
+  "license": "MIT",
+  "author": "horitaka",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "bin": {
+    "@horitaka/oapi-convert": "dist/index.js",
+    "oapi-convert": "dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horitaka/openapi-yaml-to-csv-excel.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "commit": "cz",
+    "dev": "ts-node src/index.ts",
+    "format": "prettier --write '{src,tests}/**/*.{ts,js}'",
+    "lint": "eslint --fix '{src,tests}/**/*.{ts,js}'",
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch --silent=false --verbose false"
+  },
+  "dependencies": {
+    "csv": "^6.2.6",
+    "js-yaml": "^4.1.0",
+    "ts-node": "^10.9.1",
+    "yargs": "^17.6.2"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
@@ -65,11 +75,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "csv": "^6.2.6",
-    "js-yaml": "^4.1.0",
-    "ts-node": "^10.9.1",
-    "yargs": "^17.6.2"
   }
 }
