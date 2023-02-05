@@ -1,12 +1,8 @@
 import type { Arguments, Argv } from 'yargs'
 
+import type { ConvertOptions } from '@/@types'
 import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
 import { isValidInputFile, isValidOutputFile } from '@/lib/validator'
-
-type ConvertOptions = {
-  input: string
-  output?: string
-}
 
 export const command = 'convert'
 export const desc = 'Create an empty repo'
