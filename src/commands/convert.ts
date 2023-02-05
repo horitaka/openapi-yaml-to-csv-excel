@@ -5,7 +5,7 @@ import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/f
 import { isValidInputFile, isValidOutputFile } from '@/lib/validator'
 
 export const command = 'convert'
-export const desc = 'Create an empty repo'
+export const desc = 'Create OpenAPI YAML file to CSV/Excel file.'
 export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
   yargs
     .options({
@@ -13,13 +13,13 @@ export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
         alias: 'i',
         type: 'string',
         demandOption: true,
-        description: 'Input yaml file name.',
+        description: 'Input yaml file name',
       },
       output: {
         alias: 'o',
         type: 'string',
         demandOption: false,
-        description: 'Output csv/excel file name.',
+        description: 'Output csv/excel file name',
       },
     })
     .check((argv) => {
