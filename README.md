@@ -1,6 +1,6 @@
 # openapi-yaml-to-csv-excel
 
-This is a CLI tool for converting [OpenAPI](https://spec.openapis.org/oas/v3.1.0) YAML file to CSV/Excel file. Please see the following examples below too better understand this tool.
+This is a CLI tool for converting [OpenAPI](https://spec.openapis.org/oas/v3.1.0) YAML file to CSV/Excel file. Please see the following examples below to better understand this tool.
 
 **Input file**
 
