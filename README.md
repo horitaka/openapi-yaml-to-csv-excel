@@ -70,7 +70,7 @@ npx oapi-convert update -i input-file.csv -o output-file.csv
 
 ## Contributing
 
-Contributions are welcome! See the contribution guidelines.
+Contributions are welcome! If you find a bug or want to request a new feature, please open a new issue.
 
 ## License
 
