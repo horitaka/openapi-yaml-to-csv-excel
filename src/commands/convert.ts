@@ -37,7 +37,13 @@ export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
       }
     })
 export const handler = (args: Arguments<ConvertOptions>) => {
-  const apiDocJson = loadApiDocFromYaml(args.input)
-  const outputPath = getOutputFilePath(args.input, args.output)
-  writeApiDocToCsv(outputPath, apiDocJson)
+  try {
+    const apiDocJson = loadApiDocFromYaml(args.input)
+    const outputPath = getOutputFilePath(args.input, args.output)
+    writeApiDocToCsv(outputPath, apiDocJson)
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(e.message)
+    }
+  }
 }
