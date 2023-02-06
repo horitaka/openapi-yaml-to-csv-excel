@@ -41,6 +41,7 @@ export const handler = (args: Arguments<ConvertOptions>) => {
     const apiDocJson = loadApiDocFromYaml(args.input)
     const outputPath = getOutputFilePath(args.input, args.output)
     writeApiDocToCsv(outputPath, apiDocJson)
+    console.log(`🎉Successfully converted ${args.input} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {
       console.log(e.message)
