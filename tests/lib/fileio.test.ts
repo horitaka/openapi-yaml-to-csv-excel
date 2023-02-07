@@ -38,6 +38,22 @@ describe('lib/fieio', () => {
       expect(petsByIdActual).toBeDefined()
       expect(petsByIdActual).toMatchObject(petsByIdExpected)
     })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join('nofile.yaml')
+      const result = new Error('Error: nofile.yaml does not exist or is not readable.')
+      expect(() => {
+        loadApiDocFromYaml(filePath)
+      }).toThrow(result)
+    })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'invalid.yaml')
+      const result = new Error(`Error: ${filePath} is not a valid yaml file.`)
+      expect(() => {
+        loadApiDocFromYaml(filePath)
+      }).toThrow(result)
+    })
   })
 
   describe('writeApiDocToCsv', () => {

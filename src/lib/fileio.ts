@@ -10,8 +10,19 @@ import { csvHeaders } from '@/constants'
 import { convertOpenApiJsonToCsv } from './csv'
 
 export const loadApiDocFromYaml = (path: string): OpenApi => {
+  try {
+    fs.accessSync(path, fs.constants.F_OK | fs.constants.R_OK)
+  } catch (e) {
+    throw new Error(`Error: ${path} does not exist or is not readable.`)
+  }
+
   const text = readFileSync(path, 'utf-8')
-  return load(text) as OpenApi
+  const apiDocJosn = load(text) as OpenApi
+  if (!apiDocJosn.openapi) {
+    throw new Error(`Error: ${path} is not a valid yaml file.`)
+  }
+
+  return apiDocJosn
 }
 
 export const writeApiDocToCsv = (path: string, data: OpenApi) => {
