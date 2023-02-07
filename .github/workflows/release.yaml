@@ -1,6 +1,11 @@
 name: Release
+
 on:
-  workflow_dispatch:
+  push:
+    branches-ignore:
+      - '**'
+    tags:
+      - 'v*'
 
 jobs:
   release:
