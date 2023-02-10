@@ -25,3 +25,7 @@ export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
   }
   return result
 }
+
+export const updateApiDoc = (newDoc: OpenApi, oldDoc: OpenApi): OpenApi => {
+  return { openapi: '' }
+}

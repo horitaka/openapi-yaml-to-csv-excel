@@ -1,4 +1,4 @@
-import { convertOpenApiJsonToCsv } from '@/lib/csv'
+import { convertOpenApiJsonToCsv } from '@/lib/openApi'
 
 import { sampleOpenApiJson } from '../fixtures/openApiJson'
 

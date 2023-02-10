@@ -7,7 +7,7 @@ import { load } from 'js-yaml'
 import type { OpenApi } from '@/@types'
 import { csvHeaders } from '@/constants'
 
-import { convertOpenApiJsonToCsv } from './csv'
+import { convertOpenApiJsonToCsv } from './openApi'
 
 export const loadApiDocFromYaml = (path: string): OpenApi => {
   try {
@@ -23,6 +23,10 @@ export const loadApiDocFromYaml = (path: string): OpenApi => {
   }
 
   return apiDocJosn
+}
+
+export const loadApiDocFromCsv = (path: string): OpenApi => {
+  return { openapi: '' }
 }
 
 export const writeApiDocToCsv = (path: string, data: OpenApi) => {

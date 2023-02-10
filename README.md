@@ -51,15 +51,16 @@ npx oapi-convert convert -i input-file.yaml -o output-file.csv
 **Command**
 
 ```bash
-npx oapi-convert update -i input-file.csv -o output-file.csv
+npx oapi-convert update -i input-file.yaml -u update-file.csv -o output-file.csv
 ```
 
 **Options**
 
 | Option       | Required | Description        |
 | ------------ | -------- | ------------------ |
-| -i, --input  | yes      | Updating file name |
-| -o, --output | yes      | Output file name   |
+| -i, --input  | yes      | Input file name    |
+| -u, --update | yes      | Updating file name |
+| -o, --output | no       | Output file name   |
 
 ## Roadmap
 
