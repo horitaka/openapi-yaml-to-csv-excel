@@ -6,7 +6,7 @@
   // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
   // Placeholders with the same ids are connected.
   // Example:
-  "Test": {
+  "Test file template": {
     "scope": "javascript,typescript",
     "prefix": "test",
     "body": [
@@ -23,5 +23,19 @@
       "})"
     ],
     "description": "Test file template"
+  },
+  "Test case template": {
+    "scope": "javascript,typescript",
+    "prefix": "test",
+    "body": [
+      "  describe('${1:FUNCTION_NAME}', () => {",
+      "    it('${2:DESCRIPTION}', () => {",
+      "      const actual = true",
+      "      const expected = true",
+      "      expect(actual).toBe(expected)",
+      "    })",
+      "  })"
+    ],
+    "description": "Test case template"
   }
 }

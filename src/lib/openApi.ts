@@ -1,4 +1,4 @@
-import type { OpenApi, Csv, Method } from '@/@types'
+import type { OpenApi, Csv, Method, CsvItem } from '@/@types'
 import { methods } from '@/constants'
 
 export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
@@ -23,6 +23,39 @@ export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
       })
     })
   }
+  return result
+}
+
+export const convertOpenApiCsvToJson = (csvData: Csv): OpenApi => {
+  const result = csvData.reduce(
+    (prev: OpenApi, current: CsvItem): OpenApi => {
+      const path = current?.path
+      if (!path) return prev
+
+      if (!prev.paths?.[path]) {
+        prev.paths = {
+          ...prev.paths,
+          [path]: {
+            summary: current.summary,
+            description: current.description,
+          },
+        }
+      }
+      prev.paths[path] = {
+        ...prev.paths[path],
+        [current.method]: {
+          tags: current.tags.split(' '),
+          summary: current.summaryMethod,
+          description: current.descriptionMethod,
+          operationId: current.operationId,
+        },
+      }
+
+      return prev
+    },
+    { openapi: '3.0.0' } // TODO
+  )
+
   return result
 }
 
