@@ -34,6 +34,7 @@ export const sampleOpenApiJson = {
 
 export const sampleOpenApiCsv: Csv = [
   {
+    openapi: '3.0.0',
     path: '/pets',
     summary: 'Pets resources',
     description: 'Pets resources description',
@@ -44,6 +45,7 @@ export const sampleOpenApiCsv: Csv = [
     operationId: 'listPets',
   },
   {
+    openapi: '3.0.0',
     path: '/pets',
     summary: 'Pets resources',
     description: 'Pets resources description',
@@ -54,6 +56,7 @@ export const sampleOpenApiCsv: Csv = [
     operationId: 'createPets',
   },
   {
+    openapi: '3.0.0',
     path: '/pets/{petId}',
     summary: 'Pets resources by id',
     description: 'Pets resources by id description',

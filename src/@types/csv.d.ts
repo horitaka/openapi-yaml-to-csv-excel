@@ -2,6 +2,7 @@ import type { Method } from './openapi.d'
 export type Csv = CsvItem[]
 
 type CsvItem = {
+  openapi: string
   path: string
   summary: string
   description: string

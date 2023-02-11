@@ -12,6 +12,7 @@ export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
       if (!methodItem) return
 
       result.push({
+        openapi: jsonData.openapi,
         path: path,
         summary: pathItem.summary || '',
         description: pathItem.description || '',
