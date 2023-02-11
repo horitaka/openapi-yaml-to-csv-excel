@@ -3,7 +3,7 @@ export const isValidInputFile = (filePath: string): boolean => {
 }
 
 export const isValidUpdateFile = (filePath: string): boolean => {
-  return true
+  return filePath.endsWith('.csv')
 }
 
 export const isValidOutputFile = (filePath?: string): boolean => {
