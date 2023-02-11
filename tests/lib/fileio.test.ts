@@ -68,6 +68,14 @@ describe('lib/fieio', () => {
       const expected = sampleOpenApiJson
       expect(actual).toEqual(expected)
     })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join('nofile.csv')
+      const result = new Error('Error: nofile.csv does not exist or is not readable.')
+      expect(() => {
+        loadApiDocFromCsv(filePath)
+      }).toThrow(result)
+    })
   })
 
   describe('writeApiDocToCsv', () => {
