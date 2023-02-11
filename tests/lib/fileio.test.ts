@@ -8,7 +8,7 @@ import {
   writeApiDocToCsv,
 } from '@/lib/fileio'
 
-import { sampleOpenApiJson } from '../fixtures/openApiJson'
+import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
 
 describe('lib/fieio', () => {
   describe('loadApiDocFromYaml', () => {
@@ -65,7 +65,7 @@ describe('lib/fieio', () => {
     it('loads csv and return OpeAPI JSON object', () => {
       const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.csv')
       const actual = loadApiDocFromCsv(filePath)
-      const expected = sampleOpenApiJson
+      const expected = sampleOpenApiCsv
       expect(actual).toEqual(expected)
     })
 
