@@ -1,13 +1,14 @@
 import fs, { readFileSync } from 'fs'
 import { join } from 'path'
 
+import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify/sync'
 import { load } from 'js-yaml'
 
-import type { OpenApi } from '@/@types'
+import type { Csv, OpenApi } from '@/@types'
 import { csvHeaders } from '@/constants'
 
-import { convertOpenApiJsonToCsv } from './openApi'
+import { convertOpenApiCsvToJson, convertOpenApiJsonToCsv } from './openApi'
 
 export const loadApiDocFromYaml = (path: string): OpenApi => {
   try {
@@ -26,7 +27,21 @@ export const loadApiDocFromYaml = (path: string): OpenApi => {
 }
 
 export const loadApiDocFromCsv = (path: string): OpenApi => {
-  return { openapi: '' }
+  try {
+    fs.accessSync(path, fs.constants.F_OK | fs.constants.R_OK)
+  } catch (e) {
+    throw new Error(`Error: ${path} does not exist or is not readable.`)
+  }
+
+  const text = readFileSync(path, 'utf-8')
+  const records = parse(text, {
+    columns: true,
+    skip_empty_lines: true,
+  }) as Csv
+
+  const result = convertOpenApiCsvToJson(records)
+
+  return result
 }
 
 export const writeApiDocToCsv = (path: string, data: OpenApi) => {

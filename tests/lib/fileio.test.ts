@@ -1,7 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 
-import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+import {
+  getOutputFilePath,
+  loadApiDocFromYaml,
+  loadApiDocFromCsv,
+  writeApiDocToCsv,
+} from '@/lib/fileio'
 
 import { sampleOpenApiJson } from '../fixtures/openApiJson'
 
@@ -53,6 +58,15 @@ describe('lib/fieio', () => {
       expect(() => {
         loadApiDocFromYaml(filePath)
       }).toThrow(result)
+    })
+  })
+
+  describe('loadApiDocFromCsv', () => {
+    it('loads csv and return OpeAPI JSON object', () => {
+      const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.csv')
+      const actual = loadApiDocFromCsv(filePath)
+      const expected = sampleOpenApiJson
+      expect(actual).toEqual(expected)
     })
   })
 

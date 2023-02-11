@@ -28,34 +28,36 @@ export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
 }
 
 export const convertOpenApiCsvToJson = (csvData: Csv): OpenApi => {
-  const result = csvData.reduce(
-    (prev: OpenApi, current: CsvItem): OpenApi => {
-      const path = current?.path
-      if (!path) return prev
+  const result = csvData.reduce((prev: OpenApi, current: CsvItem): OpenApi => {
+    const path = current?.path
+    if (!path) return prev
 
-      if (!prev.paths?.[path]) {
-        prev.paths = {
-          ...prev.paths,
-          [path]: {
-            summary: current.summary,
-            description: current.description,
-          },
-        }
-      }
-      prev.paths[path] = {
-        ...prev.paths[path],
-        [current.method]: {
-          tags: current.tags.split(' '),
-          summary: current.summaryMethod,
-          description: current.descriptionMethod,
-          operationId: current.operationId,
+    if (!prev.openapi) {
+      prev.openapi = current.openapi
+    }
+
+    if (!prev.paths?.[path]) {
+      prev.paths = {
+        ...prev.paths,
+        [path]: {
+          summary: current.summary,
+          description: current.description,
         },
       }
+    }
 
-      return prev
-    },
-    { openapi: '3.0.0' } // TODO
-  )
+    prev.paths[path] = {
+      ...prev.paths[path],
+      [current.method]: {
+        tags: current.tags.split(' '),
+        summary: current.summaryMethod,
+        description: current.descriptionMethod,
+        operationId: current.operationId,
+      },
+    }
+
+    return prev
+  }, {} as OpenApi)
 
   return result
 }

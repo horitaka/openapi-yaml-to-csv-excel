@@ -12,7 +12,7 @@ describe('lib/csv', () => {
   })
 
   describe('convertOpenApiCsvToJson', () => {
-    it('DESCRIPTION', () => {
+    it('convert to json', () => {
       const actual = convertOpenApiCsvToJson(sampleOpenApiCsv)
       const expected = sampleOpenApiJson
       expect(actual).toEqual(expected)

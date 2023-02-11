@@ -1,4 +1,4 @@
-path,summary,description,method,tags,summaryMethod,descriptionMethod,operationId
-/pets,Pets resources,Pets resources description,get,pets,List all pets,List all pets description,listPets
-/pets,Pets resources,Pets resources description,post,pets,Create a pet,Create a pet description,createPets
-/pets/{petId},Pets resources by id,Pets resources by id description,get,pets,Info for a specific pet,Info for a specific pet description,showPetById
+openapi,path,summary,description,method,tags,summaryMethod,descriptionMethod,operationId
+3.0.0,/pets,Pets resources,Pets resources description,get,pets,List all pets,List all pets description,listPets
+3.0.0,/pets,Pets resources,Pets resources description,post,pets,Create a pet,Create a pet description,createPets
+3.0.0,/pets/{petId},Pets resources by id,Pets resources by id description,get,pets,Info for a specific pet,Info for a specific pet description,showPetById
