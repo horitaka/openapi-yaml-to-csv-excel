@@ -42,7 +42,7 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
       }
     })
     .check((argv) => {
-      if (isValidUpdateFile(argv.input)) {
+      if (isValidUpdateFile(argv.update)) {
         return true
       } else {
         throw new Error('Invalid update file name. Allowed update file is .csv')
