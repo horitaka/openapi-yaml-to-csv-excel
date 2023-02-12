@@ -30,9 +30,7 @@ describe('lib/csv', () => {
     it('updateApiDoc API doc', () => {
       const actual = updateApiDoc(sampleOpenApiJsonUpdated, sampleOpenApiCsvUpdated)
       const expected = sampleOpenApiCsvUpdated
-      const sortFunc = (prev: CsvItem, next: CsvItem) =>
-        prev.operationId > next.operationId ? 1 : -1
-      expect(actual.sort(sortFunc)).toEqual(expected.sort(sortFunc))
+      expect(actual).toEqual(expected)
     })
   })
 })

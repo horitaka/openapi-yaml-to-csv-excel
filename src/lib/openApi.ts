@@ -107,5 +107,10 @@ export const updateApiDoc = (newDoc: OpenApi, oldDoc: CsvEdited): CsvEdited => {
     })
   }
 
+  // Sort in the same order as operationId in input yaml file
+  updatedDoc.sort(
+    (prev, next) => operationIds.indexOf(prev.operationId) - operationIds.indexOf(next.operationId)
+  )
+
   return updatedDoc
 }
