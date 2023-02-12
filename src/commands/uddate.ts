@@ -5,7 +5,7 @@ import {
   getOutputFilePath,
   loadApiDocFromCsv,
   loadApiDocFromYaml,
-  writeApiDocToCsv,
+  writeApiDocArrayToCsv,
 } from '@/lib/fileio'
 import { updateApiDoc } from '@/lib/openApi'
 import { isValidInputFile, isValidOutputFile, isValidUpdateFile } from '@/lib/validator'
@@ -58,11 +58,11 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
 export const handler = (args: Arguments<UpdateOptions>) => {
   try {
     const apiDocJsonNew = loadApiDocFromYaml(args.input)
-    const apiDocJsonOld = loadApiDocFromCsv(args.update)
+    const apiDocCsvOld = loadApiDocFromCsv(args.update)
+    const apiDocCsvUpdated = updateApiDoc(apiDocJsonNew, apiDocCsvOld)
     const outputPath = getOutputFilePath(args.input, args.output)
-    const apiDocJsonUpdated = updateApiDoc(apiDocJsonNew, apiDocJsonOld)
-    writeApiDocToCsv(outputPath, apiDocJsonUpdated)
-    console.log(`🎉Successfully converted ${args.input} to ${outputPath}.`)
+    writeApiDocArrayToCsv(outputPath, apiDocCsvUpdated)
+    console.log(`🎉Successfully updated ${args.update} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {
       console.log(e.message)

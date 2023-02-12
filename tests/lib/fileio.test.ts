@@ -5,7 +5,8 @@ import {
   getOutputFilePath,
   loadApiDocFromYaml,
   loadApiDocFromCsv,
-  writeApiDocToCsv,
+  writeApiDocJsonToCsv,
+  writeApiDocArrayToCsv,
 } from '@/lib/fileio'
 
 import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
@@ -78,11 +79,22 @@ describe('lib/fieio', () => {
     })
   })
 
-  describe('writeApiDocToCsv', () => {
+  describe('writeApiDocJsonToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
 
-      writeApiDocToCsv(fileName, sampleOpenApiJson)
+      writeApiDocJsonToCsv(fileName, sampleOpenApiJson)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      fs.unlinkSync(filePath)
+    })
+
+    it('output csv', () => {
+      const fileName = 'output.csv'
+
+      writeApiDocArrayToCsv(fileName, sampleOpenApiCsv)
 
       const filePath = path.join(process.cwd(), fileName)
       expect(fs.existsSync(filePath)).toBeTruthy()
