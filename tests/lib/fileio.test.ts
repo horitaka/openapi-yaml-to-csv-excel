@@ -1,9 +1,15 @@
 import fs from 'fs'
 import path from 'path'
 
-import { getOutputFilePath, loadApiDocFromYaml, writeApiDocToCsv } from '@/lib/fileio'
+import {
+  getOutputFilePath,
+  loadApiDocFromYaml,
+  loadApiDocFromCsv,
+  writeApiDocJsonToCsv,
+  writeApiDocArrayToCsv,
+} from '@/lib/fileio'
 
-import { sampleOpenApiJson } from '../fixtures/openApiJson'
+import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
 
 describe('lib/fieio', () => {
   describe('loadApiDocFromYaml', () => {
@@ -56,11 +62,39 @@ describe('lib/fieio', () => {
     })
   })
 
-  describe('writeApiDocToCsv', () => {
+  describe('loadApiDocFromCsv', () => {
+    it('loads csv and return OpeAPI JSON object', () => {
+      const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.csv')
+      const actual = loadApiDocFromCsv(filePath)
+      const expected = sampleOpenApiCsv
+      expect(actual).toEqual(expected)
+    })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join('nofile.csv')
+      const result = new Error('Error: nofile.csv does not exist or is not readable.')
+      expect(() => {
+        loadApiDocFromCsv(filePath)
+      }).toThrow(result)
+    })
+  })
+
+  describe('writeApiDocJsonToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
 
-      writeApiDocToCsv(fileName, sampleOpenApiJson)
+      writeApiDocJsonToCsv(fileName, sampleOpenApiJson)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      fs.unlinkSync(filePath)
+    })
+
+    it('output csv', () => {
+      const fileName = 'output.csv'
+
+      writeApiDocArrayToCsv(fileName, sampleOpenApiCsv)
 
       const filePath = path.join(process.cwd(), fileName)
       expect(fs.existsSync(filePath)).toBeTruthy()

@@ -1,6 +1,6 @@
-import { isValidInputFile, isValidOutputFile } from '@/lib/validator'
+import { isValidInputFile, isValidUpdateFile, isValidOutputFile } from '@/lib/validator'
 
-describe('validator', () => {
+describe('lib/validator', () => {
   describe('isValidInputFile', () => {
     it('calls with valid input file', () => {
       expect(isValidInputFile('input.yaml')).toBeTruthy()
@@ -13,6 +13,19 @@ describe('validator', () => {
       expect(isValidInputFile('dir/input.csv')).toBeFalsy()
       expect(isValidInputFile('dir/input.yaml1')).toBeFalsy()
       expect(isValidInputFile('dir/dir2/input.1yml')).toBeFalsy()
+    })
+  })
+
+  describe('isValidUpdateFile', () => {
+    it('calls with valid update file', () => {
+      expect(isValidUpdateFile('update.csv')).toBeTruthy()
+      expect(isValidUpdateFile('dir/dir2/update.csv')).toBeTruthy()
+    })
+
+    it('calls with invalid input file', () => {
+      expect(isValidUpdateFile('dir/input.yaml')).toBeFalsy()
+      expect(isValidUpdateFile('dir/input.csv1')).toBeFalsy()
+      expect(isValidUpdateFile('dir/dir2/input.1csv')).toBeFalsy()
     })
   })
 
