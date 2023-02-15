@@ -1,5 +1,8 @@
 # OpenAPI YAML to CSV/Excel Converter
 
+[![test](https://github.com/horitaka/openapi-yaml-to-csv-excel/actions/workflows/ci.yaml/badge.svg)](https://github.com/horitaka/openapi-yaml-to-csv-excel)
+<a href="https://www.npmjs.com/package/openapi-yaml-to-csv-excel"><img src="https://img.shields.io/npm/v/openapi-yaml-to-csv-excel.svg" alt="Version"></a>
+
 This is a CLI tool for converting [OpenAPI](https://spec.openapis.org/oas/v3.1.0) YAML file to CSV/Excel file. Please see the following examples below to better understand this tool.
 
 **Input file example**
@@ -32,7 +35,7 @@ This tool supports OpenAPI 3.0.0 or later and supports fields below.
 **Command**
 
 ```bash
-npx oapi-convert convert -i input-file.yaml -o output-file.csv
+npx openapi-yaml-to-csv-excel convert -i input-file.yaml -o output-file.csv
 ```
 
 **Options**
@@ -47,7 +50,7 @@ npx oapi-convert convert -i input-file.yaml -o output-file.csv
 **Command**
 
 ```bash
-npx oapi-convert update -i input-file.yaml -u update-file.csv -o output-file.csv
+npx openapi-yaml-to-csv-excel update -i input-file.yaml -u update-file.csv -o output-file.csv
 ```
 
 **Options**
