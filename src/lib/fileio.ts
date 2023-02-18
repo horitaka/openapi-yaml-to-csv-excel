@@ -92,7 +92,7 @@ export const getOutputFilePath = (inputPath: string, outputPath?: string): strin
   if (outputPath) {
     return outputPath
   } else {
-    return inputPath.replace(/(.yaml|.yml)/, '.csv')
+    return inputPath.replace(/(.yaml|.yml)/, '.xlsx')
   }
 }
 
