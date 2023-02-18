@@ -33,6 +33,8 @@ describe('lib/validator', () => {
     it('calls with valid output file', () => {
       expect(isValidOutputFile('output.csv')).toBeTruthy()
       expect(isValidOutputFile('dir/dir2/output.csv')).toBeTruthy()
+      expect(isValidOutputFile('output.xlsx')).toBeTruthy()
+      expect(isValidOutputFile('dir/dir2/output.xlsx')).toBeTruthy()
     })
 
     it('calls with invalid output file', () => {
