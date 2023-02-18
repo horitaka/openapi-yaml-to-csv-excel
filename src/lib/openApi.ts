@@ -1,11 +1,11 @@
-import type { OpenApi, Csv, Method, CsvItem, CsvEdited } from '@/@types'
+import type { OpenApi, ConvertedItems, Method, ConvertedItem, ConvertedItemsEdited } from '@/@types'
 import { methods } from '@/constants'
 
-export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
+export const convertOpenApiJsonToArray = (jsonData: OpenApi): ConvertedItems => {
   const pathData = jsonData.paths
   if (!pathData) return []
 
-  const result = [] as Csv
+  const result = [] as ConvertedItems
   for (const [path, pathItem] of Object.entries(pathData)) {
     methods.forEach((method: Method) => {
       const methodItem = pathItem[method]
@@ -27,8 +27,8 @@ export const convertOpenApiJsonToCsv = (jsonData: OpenApi): Csv => {
   return result
 }
 
-export const convertOpenApiCsvToJson = (csvData: Csv): OpenApi => {
-  const result = csvData.reduce((prev: OpenApi, current: CsvItem): OpenApi => {
+export const convertOpenApiCsvToJson = (csvData: ConvertedItems): OpenApi => {
+  const result = csvData.reduce((prev: OpenApi, current: ConvertedItem): OpenApi => {
     const path = current?.path
     if (!path) return prev
 
@@ -62,7 +62,10 @@ export const convertOpenApiCsvToJson = (csvData: Csv): OpenApi => {
   return result
 }
 
-export const updateApiDoc = (newDoc: OpenApi, oldDoc: CsvEdited): CsvEdited => {
+export const updateApiDoc = (
+  newDoc: OpenApi,
+  oldDoc: ConvertedItemsEdited
+): ConvertedItemsEdited => {
   const pathData = newDoc.paths
   if (!pathData) return oldDoc
 

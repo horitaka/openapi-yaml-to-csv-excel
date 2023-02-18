@@ -1,10 +1,8 @@
-import type { CsvItem } from '@/@types'
-import { convertOpenApiJsonToCsv, convertOpenApiCsvToJson, updateApiDoc } from '@/lib/openApi'
+import { convertOpenApiJsonToArray, convertOpenApiCsvToJson, updateApiDoc } from '@/lib/openApi'
 
 import {
   sampleOpenApiJson,
   sampleOpenApiCsv,
-  sampleOpenApiCsvEdited,
   sampleOpenApiCsvUpdated,
   sampleOpenApiJsonUpdated,
 } from '../fixtures/openApiJson'
@@ -12,7 +10,7 @@ import {
 describe('lib/csv', () => {
   describe('convertOpenApiJsonToCsv', () => {
     it('convert to csv', () => {
-      const actual = convertOpenApiJsonToCsv(sampleOpenApiJson)
+      const actual = convertOpenApiJsonToArray(sampleOpenApiJson)
       const expected = sampleOpenApiCsv
       expect(actual).toEqual(expected)
     })

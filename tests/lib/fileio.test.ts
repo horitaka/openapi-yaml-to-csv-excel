@@ -107,7 +107,7 @@ describe('lib/fieio', () => {
   })
 
   describe('writeApiDocJsonToExcel', () => {
-    it.only('output excel', () => {
+    it('output excel', () => {
       const fileName = 'output.xlsx'
 
       writeApiDocJsonToExcel(fileName, sampleOpenApiJson)

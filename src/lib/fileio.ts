@@ -6,10 +6,10 @@ import { stringify } from 'csv-stringify/sync'
 import { load } from 'js-yaml'
 import * as XLSX from 'xlsx'
 
-import type { CsvEdited, OpenApi } from '@/@types'
-import { csvHeaders } from '@/constants'
+import type { ConvertedItemsEdited, OpenApi, FileType } from '@/@types'
+import { headers, FileType as FileTypeConst } from '@/constants'
 
-import { convertOpenApiJsonToCsv } from './openApi'
+import { convertOpenApiJsonToArray } from './openApi'
 
 export const loadApiDocFromYaml = (path: string): OpenApi => {
   try {
@@ -27,7 +27,7 @@ export const loadApiDocFromYaml = (path: string): OpenApi => {
   return apiDocJosn
 }
 
-export const loadApiDocFromCsv = (path: string): CsvEdited => {
+export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
   try {
     fs.accessSync(path, fs.constants.F_OK | fs.constants.R_OK)
   } catch (e) {
@@ -38,19 +38,25 @@ export const loadApiDocFromCsv = (path: string): CsvEdited => {
   const records = parse(text, {
     columns: true,
     skip_empty_lines: true,
-  }) as CsvEdited
+  }) as ConvertedItemsEdited
 
   return records
 }
 
-// TODO: 名前をwriteApiDocJsonToFileに変更
-// TODO: 引数にtypeを追加
+export const writeApiDocJsonToFile = (type: FileType, path: string, data: OpenApi) => {
+  if (type === FileTypeConst.csv) {
+    writeApiDocJsonToCsv(path, data)
+  } else if (type === FileTypeConst.excel) {
+    writeApiDocJsonToExcel(path, data)
+  }
+}
+
 export const writeApiDocJsonToCsv = (path: string, data: OpenApi) => {
   const outputPath = join(process.cwd(), path)
-  const csvData = convertOpenApiJsonToCsv(data)
+  const csvData = convertOpenApiJsonToArray(data)
   const options = {
     header: true,
-    columns: csvHeaders.map((header) => ({ key: header })),
+    columns: headers.map((header) => ({ key: header })),
   }
   const outputData = stringify(csvData, options)
   fs.writeFileSync(outputPath, outputData)
@@ -58,24 +64,21 @@ export const writeApiDocJsonToCsv = (path: string, data: OpenApi) => {
 
 export const writeApiDocJsonToExcel = (path: string, data: OpenApi) => {
   const outputPath = join(process.cwd(), path)
-  // TODO change function name
-  const csvData = convertOpenApiJsonToCsv(data)
+  const outputData = convertOpenApiJsonToArray(data)
 
   /* generate worksheet and workbook */
-  const worksheet = XLSX.utils.json_to_sheet(csvData)
+  const worksheet = XLSX.utils.json_to_sheet(outputData)
   const workbook = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(workbook, worksheet, 'API')
 
   /* fix headers */
-  // TODO change variable name
-  const headers = csvHeaders.concat()
-  XLSX.utils.sheet_add_aoa(worksheet, [headers], { origin: 'A1' })
+  XLSX.utils.sheet_add_aoa(worksheet, [[...headers]], { origin: 'A1' })
 
   /* create an XLSX file and try to save to Presidents.xlsx */
   XLSX.writeFile(workbook, outputPath, { compression: true })
 }
 
-export const writeApiDocArrayToCsv = (path: string, data: CsvEdited) => {
+export const writeApiDocArrayToCsv = (path: string, data: ConvertedItemsEdited) => {
   const outputPath = join(process.cwd(), path)
   const options = {
     header: true,

@@ -1,7 +1,8 @@
 import type { Arguments, Argv } from 'yargs'
 
 import type { ConvertOptions } from '@/@types'
-import { getOutputFilePath, loadApiDocFromYaml, writeApiDocJsonToCsv } from '@/lib/fileio'
+import { FileType } from '@/constants'
+import { getOutputFilePath, loadApiDocFromYaml, writeApiDocJsonToFile } from '@/lib/fileio'
 import { isValidInputFile, isValidOutputFile } from '@/lib/validator'
 
 export const command = 'convert'
@@ -40,7 +41,7 @@ export const handler = (args: Arguments<ConvertOptions>) => {
   try {
     const apiDocJson = loadApiDocFromYaml(args.input)
     const outputPath = getOutputFilePath(args.input, args.output)
-    writeApiDocJsonToCsv(outputPath, apiDocJson)
+    writeApiDocJsonToFile(FileType.csv, outputPath, apiDocJson)
     console.log(`🎉Successfully converted ${args.input} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {

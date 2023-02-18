@@ -9,7 +9,7 @@ export const methods = [
   'trace',
 ] as const
 
-export const csvHeaders = [
+export const headers = [
   'openapi',
   'path',
   'summary',
@@ -20,3 +20,8 @@ export const csvHeaders = [
   'descriptionMethod',
   'operationId',
 ] as const
+
+export const FileType = {
+  csv: 'csv',
+  excel: 'excel',
+} as const
