@@ -46,7 +46,7 @@ export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
 export const writeApiDocJsonToFile = (type: FileType, path: string, data: OpenApi) => {
   if (type === FileTypeConst.csv) {
     writeApiDocJsonToCsv(path, data)
-  } else if (type === FileTypeConst.excel) {
+  } else if (type === FileTypeConst.xlsx) {
     writeApiDocJsonToExcel(path, data)
   }
 }
@@ -93,5 +93,18 @@ export const getOutputFilePath = (inputPath: string, outputPath?: string): strin
     return outputPath
   } else {
     return inputPath.replace(/(.yaml|.yml)/, '.csv')
+  }
+}
+
+export const getOutputType = (outputPath?: string, type?: FileType): FileType => {
+  if (type) {
+    return type
+  } else if (outputPath) {
+    const regexp = /\.[a-z]*$/i
+    const match = outputPath.match(regexp)
+    const extension = (match && match[0]) as string
+    return extension.substring(1) as FileType
+  } else {
+    return FileTypeConst.xlsx
   }
 }

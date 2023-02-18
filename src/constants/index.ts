@@ -23,5 +23,5 @@ export const headers = [
 
 export const FileType = {
   csv: 'csv',
-  excel: 'excel',
+  xlsx: 'xlsx',
 } as const
