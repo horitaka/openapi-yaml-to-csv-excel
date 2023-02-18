@@ -4,6 +4,7 @@ import { join } from 'path'
 import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify/sync'
 import { load } from 'js-yaml'
+import * as XLSX from 'xlsx'
 
 import type { CsvEdited, OpenApi } from '@/@types'
 import { csvHeaders } from '@/constants'
@@ -42,6 +43,8 @@ export const loadApiDocFromCsv = (path: string): CsvEdited => {
   return records
 }
 
+// TODO: 名前をwriteApiDocJsonToFileに変更
+// TODO: 引数にtypeを追加
 export const writeApiDocJsonToCsv = (path: string, data: OpenApi) => {
   const outputPath = join(process.cwd(), path)
   const csvData = convertOpenApiJsonToCsv(data)
@@ -51,6 +54,25 @@ export const writeApiDocJsonToCsv = (path: string, data: OpenApi) => {
   }
   const outputData = stringify(csvData, options)
   fs.writeFileSync(outputPath, outputData)
+}
+
+export const writeApiDocJsonToExcel = (path: string, data: OpenApi) => {
+  const outputPath = join(process.cwd(), path)
+  // TODO change function name
+  const csvData = convertOpenApiJsonToCsv(data)
+
+  /* generate worksheet and workbook */
+  const worksheet = XLSX.utils.json_to_sheet(csvData)
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'API')
+
+  /* fix headers */
+  // TODO change variable name
+  const headers = csvHeaders.concat()
+  XLSX.utils.sheet_add_aoa(worksheet, [headers], { origin: 'A1' })
+
+  /* create an XLSX file and try to save to Presidents.xlsx */
+  XLSX.writeFile(workbook, outputPath, { compression: true })
 }
 
 export const writeApiDocArrayToCsv = (path: string, data: CsvEdited) => {

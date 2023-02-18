@@ -33,7 +33,7 @@ export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
       if (isValidOutputFile(argv.output)) {
         return true
       } else {
-        throw new Error('Invalid output file name. Allowed output file is .csv')
+        throw new Error('Invalid output file name. Allowed output file is .csv or .xlsx')
       }
     })
 export const handler = (args: Arguments<ConvertOptions>) => {

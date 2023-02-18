@@ -7,6 +7,7 @@ import {
   loadApiDocFromCsv,
   writeApiDocJsonToCsv,
   writeApiDocArrayToCsv,
+  writeApiDocJsonToExcel,
 } from '@/lib/fileio'
 
 import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
@@ -90,11 +91,26 @@ describe('lib/fieio', () => {
 
       fs.unlinkSync(filePath)
     })
+  })
 
+  describe('writeApiDocJsonToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
 
       writeApiDocArrayToCsv(fileName, sampleOpenApiCsv)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      fs.unlinkSync(filePath)
+    })
+  })
+
+  describe('writeApiDocJsonToExcel', () => {
+    it.only('output excel', () => {
+      const fileName = 'output.xlsx'
+
+      writeApiDocJsonToExcel(fileName, sampleOpenApiJson)
 
       const filePath = path.join(process.cwd(), fileName)
       expect(fs.existsSync(filePath)).toBeTruthy()
