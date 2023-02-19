@@ -43,14 +43,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      summary: Create a user
-      description: Create a user description
-      operationId: createUser
+    put:
+      summary: Update a user
+      description: Update a user description
+      operationId: updateUser
       tags:
         - users
       responses:
-        '201':
+        '200':
           description: Null response
         default:
           description: unexpected error
@@ -72,6 +72,35 @@ paths:
           in: path
           required: true
           description: The id of the user to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users2/{userId}:
+    summary: Users2 resources by id
+    description: Users2 resources by id description
+    get:
+      summary: Info for a specific user2
+      description: Info for a specific user2 description
+      operationId: getUser2ById
+      tags:
+        - users2
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the user2 to retrieve
           schema:
             type: string
       responses:

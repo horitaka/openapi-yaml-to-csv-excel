@@ -12,6 +12,7 @@ This is a CLI tool for converting [OpenAPI](https://spec.openapis.org/oas/v3.1.0
 **Output file example**
 
 [output.csv](examples/output.csv)
+[output.xlsx](examples/output.xlsx)
 
 This tool supports OpenAPI 3.0.0 or later and supports fields below.
 
@@ -28,14 +29,14 @@ This tool supports OpenAPI 3.0.0 or later and supports fields below.
 
 ### Convert to CSV/Excel
 
-> **Note**
->
-> Currently, only CSV file convert is supported. Excel file convert will be supported soon!
-
 **Command**
 
 ```bash
 npx openapi-yaml-to-csv-excel convert -i input-file.yaml -o output-file.csv
+```
+
+```bash
+npx openapi-yaml-to-csv-excel convert -i input-file.yaml -o output-file.xlsx
 ```
 
 **Options**
@@ -53,6 +54,10 @@ npx openapi-yaml-to-csv-excel convert -i input-file.yaml -o output-file.csv
 npx openapi-yaml-to-csv-excel update -i input-file.yaml -u update-file.csv -o output-file.csv
 ```
 
+```bash
+npx openapi-yaml-to-csv-excel update -i input-file.yaml -u update-file.xlsx -o output-file.xlsx
+```
+
 **Options**
 
 | Option       | Required | Description        |
@@ -64,7 +69,7 @@ npx openapi-yaml-to-csv-excel update -i input-file.yaml -u update-file.csv -o ou
 ## Roadmap
 
 - [x] Add update command
-- [ ] Add converter to excel
+- [x] Add converter to excel
 - [ ] Add an option for selecting output columns
 - [ ] Add an option for specifying update csv header names
 - [ ] Support all OpenAPI fields

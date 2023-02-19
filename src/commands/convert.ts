@@ -1,7 +1,7 @@
 import type { Arguments, Argv } from 'yargs'
 
 import type { ConvertOptions } from '@/@types'
-import { getOutputFilePath, loadApiDocFromYaml, writeApiDocJsonToCsv } from '@/lib/fileio'
+import { getOutputFilePath, loadApiDocFromYaml, writeApiDocJsonToFile } from '@/lib/fileio'
 import { isValidInputFile, isValidOutputFile } from '@/lib/validator'
 
 export const command = 'convert'
@@ -33,14 +33,14 @@ export const builder = (yargs: Argv<ConvertOptions>): Argv<ConvertOptions> =>
       if (isValidOutputFile(argv.output)) {
         return true
       } else {
-        throw new Error('Invalid output file name. Allowed output file is .csv')
+        throw new Error('Invalid output file name. Allowed output file is .csv or .xlsx')
       }
     })
 export const handler = (args: Arguments<ConvertOptions>) => {
   try {
     const apiDocJson = loadApiDocFromYaml(args.input)
     const outputPath = getOutputFilePath(args.input, args.output)
-    writeApiDocJsonToCsv(outputPath, apiDocJson)
+    writeApiDocJsonToFile(outputPath, apiDocJson)
     console.log(`🎉Successfully converted ${args.input} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {

@@ -1,4 +1,4 @@
-import type { Csv, CsvEdited } from '@/@types'
+import type { ConvertedItems, ConvertedItemsEdited } from '@/@types'
 
 export const sampleOpenApiJson = {
   openapi: '3.0.0',
@@ -74,7 +74,7 @@ export const sampleOpenApiJsonUpdated = {
   },
 }
 
-export const sampleOpenApiCsv: Csv = [
+export const sampleOpenApiCsv: ConvertedItems = [
   {
     openapi: '3.0.0',
     path: '/pets',
@@ -110,7 +110,7 @@ export const sampleOpenApiCsv: Csv = [
   },
 ]
 
-export const sampleOpenApiCsvEdited: CsvEdited = [
+export const sampleOpenApiCsvEdited: ConvertedItemsEdited = [
   {
     openapi: '3.0.0',
     path: '/pets',
@@ -148,7 +148,7 @@ export const sampleOpenApiCsvEdited: CsvEdited = [
   },
 ]
 
-export const sampleOpenApiCsvUpdated: CsvEdited = [
+export const sampleOpenApiCsvUpdated: ConvertedItemsEdited = [
   {
     openapi: '3.0.0',
     path: '/pets',

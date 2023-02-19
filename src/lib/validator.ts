@@ -1,12 +1,16 @@
 export const isValidInputFile = (filePath: string): boolean => {
-  return filePath.endsWith('.yaml') || filePath.endsWith('.yml')
+  const regex = /\.(yml|yaml)$/
+  return regex.test(filePath)
 }
 
 export const isValidUpdateFile = (filePath: string): boolean => {
-  return filePath.endsWith('.csv')
+  const regex = /\.(csv|xlsx)$/
+  return regex.test(filePath)
 }
 
 export const isValidOutputFile = (filePath?: string): boolean => {
   if (!filePath) return true
-  else return filePath.endsWith('.csv')
+
+  const regex = /\.(csv|xlsx)$/
+  return regex.test(filePath)
 }

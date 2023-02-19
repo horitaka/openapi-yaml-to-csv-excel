@@ -3,9 +3,9 @@ import type { Arguments, Argv } from 'yargs'
 import type { UpdateOptions } from '@/@types'
 import {
   getOutputFilePath,
-  loadApiDocFromCsv,
+  loadApiDocFromFile,
   loadApiDocFromYaml,
-  writeApiDocArrayToCsv,
+  writeApiDocArrayToFile,
 } from '@/lib/fileio'
 import { updateApiDoc } from '@/lib/openApi'
 import { isValidInputFile, isValidOutputFile, isValidUpdateFile } from '@/lib/validator'
@@ -45,23 +45,23 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
       if (isValidUpdateFile(argv.update)) {
         return true
       } else {
-        throw new Error('Invalid update file name. Allowed update file is .csv')
+        throw new Error('Invalid update file name. Allowed update file is .csv or .xlsx')
       }
     })
     .check((argv) => {
       if (isValidOutputFile(argv.output)) {
         return true
       } else {
-        throw new Error('Invalid output file name. Allowed output file is .csv')
+        throw new Error('Invalid output file name. Allowed output file is .csv or .xlsx')
       }
     })
 export const handler = (args: Arguments<UpdateOptions>) => {
   try {
     const apiDocJsonNew = loadApiDocFromYaml(args.input)
-    const apiDocCsvOld = loadApiDocFromCsv(args.update)
-    const apiDocCsvUpdated = updateApiDoc(apiDocJsonNew, apiDocCsvOld)
+    const apiDocArrayOld = loadApiDocFromFile(args.update)
+    const apiDocArrayUpdated = updateApiDoc(apiDocJsonNew, apiDocArrayOld)
     const outputPath = getOutputFilePath(args.input, args.output)
-    writeApiDocArrayToCsv(outputPath, apiDocCsvUpdated)
+    writeApiDocArrayToFile(outputPath, apiDocArrayUpdated)
     console.log(`🎉Successfully updated ${args.update} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {

@@ -1,9 +1,9 @@
 import type { Method } from './openapi.d'
 
-export type Csv = CsvItem[]
-export type CsvEdited = CsvItemEdited[]
+export type ConvertedItems = ConvertedItem[]
+export type ConvertedItemsEdited = ConvertedItemEdited[]
 
-type CsvItem = {
+type ConvertedItem = {
   openapi: string
   path: string
   summary: string
@@ -15,4 +15,4 @@ type CsvItem = {
   operationId: string
 }
 
-type CsvItemEdited = CsvItem & { [key: string]: string }
+type ConvertedItemEdited = ConvertedItem & { [key: string]: string }

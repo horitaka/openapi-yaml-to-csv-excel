@@ -5,8 +5,13 @@ import {
   getOutputFilePath,
   loadApiDocFromYaml,
   loadApiDocFromCsv,
+  loadApiDocFromExcel,
   writeApiDocJsonToCsv,
+  writeApiDocArrayToExcel,
   writeApiDocArrayToCsv,
+  writeApiDocJsonToExcel,
+  getOutputType,
+  getFileExtension,
 } from '@/lib/fileio'
 
 import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
@@ -79,6 +84,23 @@ describe('lib/fieio', () => {
     })
   })
 
+  describe('loadApiDocFromExcel', () => {
+    it('loads csv and return OpeAPI JSON object', () => {
+      const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.xlsx')
+      const actual = loadApiDocFromExcel(filePath)
+      const expected = sampleOpenApiCsv
+      expect(actual).toEqual(expected)
+    })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join('nofile.xlsx')
+      const result = new Error('Error: nofile.xlsx does not exist or is not readable.')
+      expect(() => {
+        loadApiDocFromExcel(filePath)
+      }).toThrow(result)
+    })
+  })
+
   describe('writeApiDocJsonToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
@@ -90,11 +112,39 @@ describe('lib/fieio', () => {
 
       fs.unlinkSync(filePath)
     })
+  })
 
+  describe('writeApiDocArrayToExcel', () => {
+    it('output excel', () => {
+      const fileName = 'output.xlsx'
+
+      writeApiDocArrayToExcel(fileName, sampleOpenApiCsv)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      fs.unlinkSync(filePath)
+    })
+  })
+
+  describe('writeApiDocJsonToCsv', () => {
     it('output csv', () => {
       const fileName = 'output.csv'
 
       writeApiDocArrayToCsv(fileName, sampleOpenApiCsv)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      fs.unlinkSync(filePath)
+    })
+  })
+
+  describe('writeApiDocJsonToExcel', () => {
+    it('output excel', () => {
+      const fileName = 'output.xlsx'
+
+      writeApiDocJsonToExcel(fileName, sampleOpenApiJson)
 
       const filePath = path.join(process.cwd(), fileName)
       expect(fs.existsSync(filePath)).toBeTruthy()
@@ -116,13 +166,52 @@ describe('lib/fieio', () => {
     it('receive no output file path and return input file path', () => {
       const inputPath = 'input.yaml'
       const inputPath2 = 'input.yml'
-      const outputPath = 'input.csv'
+      const outputPath = 'input.xlsx'
 
       const actual = getOutputFilePath(inputPath)
       expect(actual).toBe(outputPath)
 
       const actual2 = getOutputFilePath(inputPath2)
       expect(actual2).toBe(outputPath)
+    })
+  })
+
+  describe('getOutputType', () => {
+    it('receive input file and return xlsx', () => {
+      const actual = getOutputType()
+      expect(actual).toBe('xlsx')
+    })
+
+    it('receive input file, output csv file and return csv', () => {
+      const outputPath = 'output.csv'
+      const actual = getOutputType(outputPath)
+      expect(actual).toBe('csv')
+    })
+
+    it('receive input file, output xlsx file and return xlsx', () => {
+      const outputPath = 'output.xlsx'
+      const actual = getOutputType(outputPath)
+      expect(actual).toBe('xlsx')
+    })
+
+    it('receive input file, output file, filet type and return file type', () => {
+      const outputPath = 'output.xlsx'
+      const fileType = 'csv'
+      const actual = getOutputType(outputPath, fileType)
+      expect(actual).toBe('csv')
+    })
+  })
+  describe('getFileExtension', () => {
+    it('receive csv file and return csv', () => {
+      const path = 'dir/file.csv'
+      const actual = getFileExtension(path)
+      expect(actual).toBe('csv')
+    })
+
+    it('receive csv xlsx and return xlsx', () => {
+      const path = 'dir/file.xlsx'
+      const actual = getFileExtension(path)
+      expect(actual).toBe('xlsx')
     })
   })
 })
