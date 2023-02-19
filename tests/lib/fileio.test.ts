@@ -7,6 +7,7 @@ import {
   loadApiDocFromCsv,
   loadApiDocFromExcel,
   writeApiDocJsonToCsv,
+  writeApiDocArrayToExcel,
   writeApiDocArrayToCsv,
   writeApiDocJsonToExcel,
   getOutputType,
@@ -110,6 +111,19 @@ describe('lib/fieio', () => {
       expect(fs.existsSync(filePath)).toBeTruthy()
 
       fs.unlinkSync(filePath)
+    })
+  })
+
+  describe('writeApiDocArrayToExcel', () => {
+    it('output excel', () => {
+      const fileName = 'output.xlsx'
+
+      writeApiDocArrayToExcel(fileName, sampleOpenApiCsv)
+
+      const filePath = path.join(process.cwd(), fileName)
+      expect(fs.existsSync(filePath)).toBeTruthy()
+
+      // fs.unlinkSync(filePath)
     })
   })
 

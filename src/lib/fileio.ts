@@ -101,9 +101,13 @@ export const writeApiDocJsonToExcel = (path: string, data: OpenApi) => {
   XLSX.writeFile(workbook, outputPath, { compression: true })
 }
 
-// TODO:
 export const writeApiDocArrayToFile = (path: string, data: ConvertedItemsEdited) => {
-  writeApiDocArrayToCsv(path, data)
+  const type = getFileExtension(path)
+  if (type === FileTypeConst.csv) {
+    writeApiDocArrayToCsv(path, data)
+  } else if (type === FileTypeConst.xlsx) {
+    writeApiDocArrayToExcel(path, data)
+  }
 }
 
 export const writeApiDocArrayToCsv = (path: string, data: ConvertedItemsEdited) => {
@@ -114,6 +118,21 @@ export const writeApiDocArrayToCsv = (path: string, data: ConvertedItemsEdited) 
   }
   const outputData = stringify(data, options)
   fs.writeFileSync(outputPath, outputData)
+}
+
+export const writeApiDocArrayToExcel = (path: string, data: ConvertedItemsEdited) => {
+  const outputPath = join(process.cwd(), path)
+
+  /* generate worksheet and workbook */
+  const worksheet = XLSX.utils.json_to_sheet(data)
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'API')
+
+  /* fix headers */
+  XLSX.utils.sheet_add_aoa(worksheet, [[...headers]], { origin: 'A1' })
+
+  /* create an XLSX file and try to save to Presidents.xlsx */
+  XLSX.writeFile(workbook, outputPath, { compression: true })
 }
 
 export const getOutputFilePath = (inputPath: string, outputPath?: string): string => {
