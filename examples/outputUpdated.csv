@@ -1,4 +1,5 @@
 openapi,path,summary,description,method,tags,summaryMethod,descriptionMethod,operationId
 3.0.0,/users,User resources,User resources description,get,users,List all users,List all users description,listUsers
-3.0.0,/users,User resources,User resources description,post,users,Create a user,Create a user description,createUser
+3.0.0,/users,User resources,User resources description,put,users,Update a user,Update a user description,updateUser
 3.0.0,/users/{userId},Users resources by id,Users resources by id description,get,users,Info for a specific user,Info for a specific user description,getUserById
+3.0.0,/users2/{userId},Users2 resources by id,Users2 resources by id description,get,users2,Info for a specific user2,Info for a specific user2 description,getUser2ById
