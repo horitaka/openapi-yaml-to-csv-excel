@@ -45,14 +45,14 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
       if (isValidUpdateFile(argv.update)) {
         return true
       } else {
-        throw new Error('Invalid update file name. Allowed update file is .csv')
+        throw new Error('Invalid update file name. Allowed update file is .csv or .xlsx')
       }
     })
     .check((argv) => {
       if (isValidOutputFile(argv.output)) {
         return true
       } else {
-        throw new Error('Invalid output file name. Allowed output file is .csv')
+        throw new Error('Invalid output file name. Allowed output file is .csv or .xlsx')
       }
     })
 export const handler = (args: Arguments<UpdateOptions>) => {

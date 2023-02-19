@@ -20,6 +20,8 @@ describe('lib/validator', () => {
     it('calls with valid update file', () => {
       expect(isValidUpdateFile('update.csv')).toBeTruthy()
       expect(isValidUpdateFile('dir/dir2/update.csv')).toBeTruthy()
+      expect(isValidUpdateFile('update.xlsx')).toBeTruthy()
+      expect(isValidUpdateFile('dir/dir2/update.xlsx')).toBeTruthy()
     })
 
     it('calls with invalid input file', () => {

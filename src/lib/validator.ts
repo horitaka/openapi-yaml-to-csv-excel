@@ -4,7 +4,7 @@ export const isValidInputFile = (filePath: string): boolean => {
 }
 
 export const isValidUpdateFile = (filePath: string): boolean => {
-  const regex = /\.(csv)$/
+  const regex = /\.(csv|xlsx)$/
   return regex.test(filePath)
 }
 
