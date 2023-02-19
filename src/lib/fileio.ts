@@ -27,9 +27,15 @@ export const loadApiDocFromYaml = (path: string): OpenApi => {
   return apiDocJosn
 }
 
-// TODO
 export const loadApiDocFromFile = (path: string): ConvertedItemsEdited => {
-  return loadApiDocFromCsv(path)
+  const type = getFileExtension(path)
+  if (type === FileTypeConst.csv) {
+    return loadApiDocFromCsv(path)
+  } else if (type === FileTypeConst.xlsx) {
+    return loadApiDocFromExcel(path)
+  } else {
+    return []
+  }
 }
 
 export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
@@ -48,9 +54,15 @@ export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
   return records
 }
 
-// TODO
 export const loadApiDocFromExcel = (path: string): ConvertedItemsEdited => {
-  return []
+  try {
+    const workbook = XLSX.readFile(path)
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]]
+    const data = XLSX.utils.sheet_to_json(worksheet) as ConvertedItemsEdited
+    return data
+  } catch (e) {
+    throw new Error(`Error: ${path} does not exist or is not readable.`)
+  }
 }
 
 export const writeApiDocJsonToFile = (path: string, data: OpenApi) => {

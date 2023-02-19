@@ -5,6 +5,7 @@ import {
   getOutputFilePath,
   loadApiDocFromYaml,
   loadApiDocFromCsv,
+  loadApiDocFromExcel,
   writeApiDocJsonToCsv,
   writeApiDocArrayToCsv,
   writeApiDocJsonToExcel,
@@ -78,6 +79,23 @@ describe('lib/fieio', () => {
       const result = new Error('Error: nofile.csv does not exist or is not readable.')
       expect(() => {
         loadApiDocFromCsv(filePath)
+      }).toThrow(result)
+    })
+  })
+
+  describe('loadApiDocFromExcel', () => {
+    it('loads csv and return OpeAPI JSON object', () => {
+      const filePath = path.join(process.cwd(), 'tests', 'fixtures', 'api.xlsx')
+      const actual = loadApiDocFromExcel(filePath)
+      const expected = sampleOpenApiCsv
+      expect(actual).toEqual(expected)
+    })
+
+    it('throw error, no input file', () => {
+      const filePath = path.join('nofile.xlsx')
+      const result = new Error('Error: nofile.xlsx does not exist or is not readable.')
+      expect(() => {
+        loadApiDocFromExcel(filePath)
       }).toThrow(result)
     })
   })

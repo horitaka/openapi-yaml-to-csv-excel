@@ -58,10 +58,10 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
 export const handler = (args: Arguments<UpdateOptions>) => {
   try {
     const apiDocJsonNew = loadApiDocFromYaml(args.input)
-    const apiDocCsvOld = loadApiDocFromFile(args.update)
-    const apiDocCsvUpdated = updateApiDoc(apiDocJsonNew, apiDocCsvOld)
+    const apiDocArrayOld = loadApiDocFromFile(args.update)
+    const apiDocArrayUpdated = updateApiDoc(apiDocJsonNew, apiDocArrayOld)
     const outputPath = getOutputFilePath(args.input, args.output)
-    writeApiDocArrayToFile(outputPath, apiDocCsvUpdated)
+    writeApiDocArrayToFile(outputPath, apiDocArrayUpdated)
     console.log(`🎉Successfully updated ${args.update} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {
