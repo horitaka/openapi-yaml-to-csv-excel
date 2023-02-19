@@ -3,9 +3,9 @@ import type { Arguments, Argv } from 'yargs'
 import type { UpdateOptions } from '@/@types'
 import {
   getOutputFilePath,
-  loadApiDocFromCsv,
+  loadApiDocFromFile,
   loadApiDocFromYaml,
-  writeApiDocArrayToCsv,
+  writeApiDocArrayToFile,
 } from '@/lib/fileio'
 import { updateApiDoc } from '@/lib/openApi'
 import { isValidInputFile, isValidOutputFile, isValidUpdateFile } from '@/lib/validator'
@@ -58,10 +58,10 @@ export const builder = (yargs: Argv<UpdateOptions>): Argv<UpdateOptions> =>
 export const handler = (args: Arguments<UpdateOptions>) => {
   try {
     const apiDocJsonNew = loadApiDocFromYaml(args.input)
-    const apiDocCsvOld = loadApiDocFromCsv(args.update)
+    const apiDocCsvOld = loadApiDocFromFile(args.update)
     const apiDocCsvUpdated = updateApiDoc(apiDocJsonNew, apiDocCsvOld)
     const outputPath = getOutputFilePath(args.input, args.output)
-    writeApiDocArrayToCsv(outputPath, apiDocCsvUpdated)
+    writeApiDocArrayToFile(outputPath, apiDocCsvUpdated)
     console.log(`🎉Successfully updated ${args.update} to ${outputPath}.`)
   } catch (e) {
     if (e instanceof Error) {

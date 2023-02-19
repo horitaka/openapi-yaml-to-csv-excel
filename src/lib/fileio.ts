@@ -27,6 +27,11 @@ export const loadApiDocFromYaml = (path: string): OpenApi => {
   return apiDocJosn
 }
 
+// TODO
+export const loadApiDocFromFile = (path: string): ConvertedItemsEdited => {
+  return loadApiDocFromCsv(path)
+}
+
 export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
   try {
     fs.accessSync(path, fs.constants.F_OK | fs.constants.R_OK)
@@ -43,7 +48,13 @@ export const loadApiDocFromCsv = (path: string): ConvertedItemsEdited => {
   return records
 }
 
-export const writeApiDocJsonToFile = (type: FileType, path: string, data: OpenApi) => {
+// TODO
+export const loadApiDocFromExcel = (path: string): ConvertedItemsEdited => {
+  return []
+}
+
+export const writeApiDocJsonToFile = (path: string, data: OpenApi) => {
+  const type = getFileExtension(path)
   if (type === FileTypeConst.csv) {
     writeApiDocJsonToCsv(path, data)
   } else if (type === FileTypeConst.xlsx) {
@@ -78,6 +89,11 @@ export const writeApiDocJsonToExcel = (path: string, data: OpenApi) => {
   XLSX.writeFile(workbook, outputPath, { compression: true })
 }
 
+// TODO:
+export const writeApiDocArrayToFile = (path: string, data: ConvertedItemsEdited) => {
+  writeApiDocArrayToCsv(path, data)
+}
+
 export const writeApiDocArrayToCsv = (path: string, data: ConvertedItemsEdited) => {
   const outputPath = join(process.cwd(), path)
   const options = {
@@ -107,4 +123,8 @@ export const getOutputType = (outputPath?: string, type?: FileType): FileType =>
   } else {
     return FileTypeConst.xlsx
   }
+}
+
+export const getFileExtension = (path: string): string | undefined => {
+  return path.split('.').pop()
 }

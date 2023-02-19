@@ -9,6 +9,7 @@ import {
   writeApiDocArrayToCsv,
   writeApiDocJsonToExcel,
   getOutputType,
+  getFileExtension,
 } from '@/lib/fileio'
 
 import { sampleOpenApiJson, sampleOpenApiCsv } from '../fixtures/openApiJson'
@@ -133,7 +134,7 @@ describe('lib/fieio', () => {
     it('receive no output file path and return input file path', () => {
       const inputPath = 'input.yaml'
       const inputPath2 = 'input.yml'
-      const outputPath = 'input.csv'
+      const outputPath = 'input.xlsx'
 
       const actual = getOutputFilePath(inputPath)
       expect(actual).toBe(outputPath)
@@ -166,6 +167,19 @@ describe('lib/fieio', () => {
       const fileType = 'csv'
       const actual = getOutputType(outputPath, fileType)
       expect(actual).toBe('csv')
+    })
+  })
+  describe('getFileExtension', () => {
+    it('receive csv file and return csv', () => {
+      const path = 'dir/file.csv'
+      const actual = getFileExtension(path)
+      expect(actual).toBe('csv')
+    })
+
+    it('receive csv xlsx and return xlsx', () => {
+      const path = 'dir/file.xlsx'
+      const actual = getFileExtension(path)
+      expect(actual).toBe('xlsx')
     })
   })
 })
