@@ -123,7 +123,7 @@ describe('lib/fieio', () => {
       const filePath = path.join(process.cwd(), fileName)
       expect(fs.existsSync(filePath)).toBeTruthy()
 
-      // fs.unlinkSync(filePath)
+      fs.unlinkSync(filePath)
     })
   })
 
