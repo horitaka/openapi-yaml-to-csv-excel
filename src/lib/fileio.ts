@@ -2,6 +2,7 @@ import fs, { readFileSync } from 'fs'
 import { join } from 'path'
 
 import { parse } from 'csv-parse/sync'
+import type { Options } from 'csv-stringify/sync'
 import { stringify } from 'csv-stringify/sync'
 import { load } from 'js-yaml'
 import * as XLSX from 'xlsx'
@@ -77,9 +78,10 @@ export const writeApiDocJsonToFile = (path: string, data: OpenApi) => {
 export const writeApiDocJsonToCsv = (path: string, data: OpenApi) => {
   const outputPath = join(process.cwd(), path)
   const csvData = convertOpenApiJsonToArray(data)
-  const options = {
+  const options: Options = {
     header: true,
     columns: headers.map((header) => ({ key: header })),
+    bom: true,
   }
   const outputData = stringify(csvData, options)
   fs.writeFileSync(outputPath, outputData)
@@ -112,9 +114,10 @@ export const writeApiDocArrayToFile = (path: string, data: ConvertedItemsEdited)
 
 export const writeApiDocArrayToCsv = (path: string, data: ConvertedItemsEdited) => {
   const outputPath = join(process.cwd(), path)
-  const options = {
+  const options: Options = {
     header: true,
     columns: Object.keys(data[0]).map((item) => ({ key: item })),
+    bom: true,
   }
   const outputData = stringify(data, options)
   fs.writeFileSync(outputPath, outputData)
